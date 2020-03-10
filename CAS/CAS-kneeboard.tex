@@ -1,0 +1,271 @@
+% CAS-kneeboard: CAS quick-ref for 132nd vWing as kneeboard 
+% Copyright © 2020 132nd.Professor
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+\documentclass[
+  7pt,
+  headinclude=false,
+  footinclude=false,
+  portrait,
+  paper=15cm:10cm,
+  twocolumn,
+]{scrartcl}
+\usepackage{scrlayer-scrpage}
+\usepackage{scrdate}
+\usepackage{selinput}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage[UKenglish]{babel}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{lastpage}
+\usepackage{xcolor}
+%\usepackage{showframe}  % uncomment this to view the page layout
+
+
+\usepackage{noto-mono}
+\renewcommand*\familydefault{\ttdefault}
+
+\addtokomafont{section}{\ttfamily}
+\addtokomafont{subsection}{\ttfamily}
+\usetikzlibrary{calc}
+
+\areaset{9.0cm}{14.0cm}
+\pagestyle{scrheadings}
+\ifoot{\small CAS QUICK-REF v1.1}
+\cfoot{\small\thepage/\pageref{LastPage}}
+\ofoot{\small\ISOToday}
+\RedeclareSectionCommand[beforeskip=1em,afterskip=0.5em]{subsection}
+\setlength{\footskip}{1.4em}
+
+\setlist{noitemsep,labelindent=\parindent,leftmargin=*}
+
+---pagecolor---
+
+\begin{document}
+\raggedbottom
+\section*{132nd CAS QUICK-REF}
+
+\subsection*{CAS FLOW}
+\begin{enumerate}
+  \item authentication (2-way)
+  \item routing 
+  \item check-in
+  \item situation update
+  \item CAS briefs, 5-lines
+  \item BDA
+  \item routing 
+\end{enumerate}
+
+\subsection*{CHECK-IN}
+\begin{enumerate}
+  \item call-sign
+  \item mission number
+  \item number + type of A/C
+  \item position, altitude
+  \item ordnance
+  \item playtime
+  \item sensors, capabilities
+  \item abort code
+\end{enumerate}
+
+\subsection*{AO UPDATE}
+\begin{enumerate}
+  \item situation
+  \item GFC's intent
+  \item threats
+  \item targets\vspace*{0.8ex}
+  \item friendlies
+  \item ARTY + GTL
+  \item clearance
+  \item ordnance req.\vspace*{0.8ex}
+  \item restrictions
+  \item hazards
+  \item remarks
+\end{enumerate}
+
+\subsection*{CAS BRIEFS}
+\begin{enumerate}
+  \item gameplan
+  \item 9-line
+  \item remarks, (!)\,restrictions
+  \item readbacks
+  \item correlation
+  \item attack
+  \item assessment
+\end{enumerate}
+
+\subsection*{9-LINE}
+\begin{enumerate}
+  \item IP
+  \item heading
+  \item distance \vspace*{0.8ex}
+  \item (!) elevation 
+  \item target
+  \item (!) location \vspace*{0.8ex}
+  \item mark (LASER: PRF)
+  \item (!) friendlies
+  \item egress
+\end{enumerate}
+
+\subsection*{5-LINE}
+\begin{enumerate}
+  \item warning order
+  \item friendly location, mark
+  \item target location
+  \item target description, mark
+  \item remarks, restrictions
+\end{enumerate}
+
+\subsection*{SALUTE REPORTING FORMAT}
+\begin{itemize}[labelindent=0.6em]
+  \item [S.] size
+  \item [A.] activity
+  \item [L.] location
+  \item [U.] unit type
+  \item [T.] time
+  \item [E.] equipment
+\end{itemize}
+
+\subsection*{BDA}
+\begin{enumerate}
+  \item size
+  \item activity
+  \item location
+  \item time
+  \item remarks
+\end{enumerate}
+
+\vspace*{\fill}
+\noindent (!): mandatory readback items
+\pagebreak
+
+\subsection*{LASER BREVITY}
+\begin{itemize}
+  \item TEN SECONDS
+  \item LASER ON
+  \item LASING
+  \item CEASE LASER
+  \item NEGATIVE LASER
+  \item STARE (PRF + ref. point)
+  \item SHIFT
+  \item SPOT
+  \item DEAD EYE
+\end{itemize}
+
+\subsection*{IR BREVITY}
+\begin{itemize}
+  \item ROPE
+  \item SPARKLE
+  \item CONTACT SPARKLE
+  \item MATCH SPARKLE
+  \item CEASE SPARKLE
+  \item SNAKE
+  %\item PULSE
+  \item STEADY
+  %\item STOP
+\end{itemize}
+
+\subsection*{KEYHOLE IPs}
+
+\begin{tikzpicture}[semithick,scale=0.5]
+  \coordinate (echo) at (0.5, 0.25);
+  \draw[-] (echo) -- ++(0,3) node [above] {A};
+  \draw[-] (echo) -- ++(3,0) node [right] {B};
+  \draw[-] (echo) -- ++(0,-3) node [below] {C};
+  \draw[-] (echo) -- ++(-3,0) node [left] {D};
+
+  \coordinate (B5) at ($(echo) + (2.5, 0)$);
+  \filldraw [fill=---fillcolor---] (B5) ++(-0.15,-0.15) rectangle  ++(0.3,0.3); 
+  \node [anchor=north,yshift=-0.25em] at ($(echo)+(2.5,0)$)  {\small IP\,B5};
+
+  \coordinate (hasty) at ($(echo) + (45:1.5)$);
+  \draw[-] (echo) -- (hasty) node [above, right, yshift=0.8em] {\small IP 045/3};
+  \filldraw [fill=---fillcolor---,rotate=45] (hasty) ++(-0.15,-0.15) rectangle ++(0.3, 0.3);
+
+  \filldraw [fill=---fillcolor---] (0,0) -- (0:1)  -- (60:1) -- cycle node [midway, above, left, yshift=0.5em] {E};
+  \draw[-latex] (-1.5, 2) -- ++(0, 1) node [midway, right] {N};
+  \node [anchor=north east] at ($(echo) - (0, 0.25)$) {\small target};
+\end{tikzpicture}
+\vspace*{\fill}
+
+\subsection*{TLE CATEGORIES}
+
+\begin{tabular}{%
+@{}%
+c%
+@{\hspace*{0.4ex}}%
+r%
+@{\ -}%
+r%
+@{\hspace*{3.0ex}}%
+l%
+@{}%
+} \toprule
+  CAT & \multicolumn{2}{c}{error} & source \\ \midrule
+    1 & 0   &6\,m     & PB, F10 \\
+    2 & 7   &15\,m    & LASER \\
+    3 & 16  &30\,m    & LITENING \\
+    4 & 31  &91\,m    & CORR, LANTIRN \\
+    5 & 92  &\ 305\,m & CORR \\
+    6 & 305 &\ldots   & CORR, SHKVAL \\ \bottomrule
+\end{tabular}
+{\small
+\begin{itemize}[leftmargin=0pt]
+\item[] TLE CAT $\leq$ 3 reqd. for BOC
+\item[] PB: pre-briefed
+\item[] F10: from F10 map
+\item[] CORR: MK.1 correlated to map
+\item[] TGPs: under optimal conditions
+\end{itemize}
+}
+
+
+\subsection*{DANGER CLOSE DISTANCES}
+\begin{tabular}{@{}lr@{}} \toprule
+  ordnance       & 0.1\,\% PI \\ \midrule
+  MK-82          & 310\,m \\
+  MK-82AIR       & 310\,m \\
+  MK-84          & 355\,m \\ \midrule
+  GBU-10         & 315\,m \\
+  GBU-12         & 280\,m \\
+  GBU-31         & 335\,m \\
+  GBU-38         & 210\,m \\ \midrule
+  CBU-87         & 300\,m \\
+  CBU-97         & 300\,m \\
+  CBU-103        & 270\,m \\
+  CBU-105        & 270\,m \\ \midrule
+  AGM-65         & 175\,m \\
+  2.75" MA       & 265\,m \\
+  2.75" LA       & 290\,m \\
+  GAU-8          &  95\,m \\ \midrule
+  100\,kg equiv. & 500\,m \\ \bottomrule
+\end{tabular}
+
+\subsection*{ARTY MAXIMUM ORDINATE}
+\begin{tabular}{@{}rrr@{}} \toprule
+  type & range   & height \\ \midrule
+  \multirow{2}{*}{M109} 
+       &  22\,km & 15,000\,ft \\
+       &  11\,km &  4,500\,ft \\ \midrule
+  \multirow{2}{*}{2B11} 
+       & 3.6\,km &  5,000\,ft \\
+       & 7.2\,km & 10,000\,ft \\ \bottomrule
+\end{tabular}
+
+\end{document}

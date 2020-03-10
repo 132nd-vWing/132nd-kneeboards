@@ -1,0 +1,112 @@
+% ??????????????????????????? 
+% Copyright © 2020 132nd.Professor
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+\documentclass[
+  7pt,
+  headinclude=false,
+  footinclude=false,
+  portrait,
+  paper=15cm:10cm,
+]{scrartcl}
+\usepackage{scrlayer-scrpage}
+\usepackage{scrdate}
+\usepackage[gray]{xcolor}
+\usepackage{selinput}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage[UKenglish]{babel}
+\usepackage{tikz}
+\usepackage{alphalph}
+\usepackage{pgfmath}
+\usepackage{pgfplotstable}
+
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+
+\usepackage[DefaultFeatures={Ligatures=Common}]{plex-otf}
+\renewcommand*\familydefault{\sfdefault}
+
+\areaset{9.0cm}{14.0cm}
+\pagestyle{scrheadings}
+\addtokomafont{pageheadfoot}{\upshape}
+\setlength{\footskip}{1.4em}
+\ifoot{\small AET v1.2}
+\cfoot{\small Authentication Encryption Table}
+\ofoot{\small\ISOToday}
+
+\pgfplotstableread[header=false,col sep=comma]{AET.dat}\loadedtable
+
+---pagecolor---
+
+\begin{document}
+\noindent%
+
+{\centering
+\begin{tikzpicture}
+  \foreach \x in {0,1,...,25} {
+    \pgfmathparse{int(\x+1)}\edef\character{\pgfmathresult}
+    \pgfmathparse{div(\x, 5)}
+    \node at ($(0.85*\textwidth*\x/26+2ex+\pgfmathresult*5, 0)$) (c\x) {\textbf{\AlphAlph{\character}}};
+
+  }
+
+  \foreach \y in {0,1,...,24} {
+    \pgfmathparse{int(\y+1)}\edef\character{\pgfmathresult}
+    \pgfmathparse{div(\y, 5)}
+    \node at ($(-1ex, -0.7*\textheight*\y/26-1.8em-\pgfmathresult*5)$) (r\y) {\textbf{\AlphAlph{\character}}};
+  }
+
+  \foreach \x in {0,1,...,25} {
+    \foreach \y in {0,1,...,24} {
+      \pgfplotstablegetelem{\y}{\x}\of{\loadedtable}
+      \node at (r\y -| c\x) (c\x_r\y) {\pgfplotsretval};
+    }
+  }
+  \draw [thick] (r0.west |- c0.north) rectangle (r24.south -| c25.east);
+\end{tikzpicture}
+}
+
+\subsection*{RAMROD}
+\begin{tikzpicture}[minimum width=2ex, node distance=0.0ex]
+  \node [inner sep=0pt, anchor=west]              at (0,    0) (e0) {even days:};
+  \node [inner sep=0pt, below=of e0, anchor=west] at (0, -2em) (o0) {odd days:};
+
+  \node [node distance=6em, right=of e0.west] (e1) {L};  
+  \node [right=of e1] (e2) {U};  
+  \node [right=of e2] (e3) {M};  
+  \node [right=of e3] (e4) {B};  
+  \node [right=of e4] (e5) {E};  
+  \node [right=of e5] (e6) {R};  
+  \node [right=of e6] (e7) {J};  
+  \node [right=of e7] (e8) {A};  
+  \node [right=of e8] (e9) {C};  
+  \node [right=of e9] (e10){K};  
+
+  \node at (o0 -| e1)  {C};  
+  \node at (o0 -| e2)  {O};  
+  \node at (o0 -| e3)  {M};  
+  \node at (o0 -| e4)  {P};  
+  \node at (o0 -| e5)  {L};  
+  \node at (o0 -| e6)  {E};  
+  \node at (o0 -| e7)  {X};  
+  \node at (o0 -| e8)  {I};  
+  \node at (o0 -| e9)  {T};  
+  \node at (o0 -| e10) {Y};  
+\end{tikzpicture}
+
+\end{document}
+

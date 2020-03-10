@@ -1,0 +1,105 @@
+% frequency-color-table: frequency color table for 132nd vWing as kneeboard 
+% Copyright © 2020 132nd.Professor
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+\documentclass[
+  fontsize=8.0pt,
+  headinclude=false,
+  footinclude=false,
+  portrait,
+  paper=15cm:10cm,
+]{scrartcl}
+\usepackage{scrlayer-scrpage}
+\usepackage{scrdate}
+\usepackage{selinput}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage[UKenglish]{babel}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{pgfplotstable}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{lastpage}
+\usepackage{siunitx}
+%\usepackage{showframe}  % uncomment this to view the page layout
+
+\usetikzlibrary{calc}
+
+%---pagecolor---
+
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\extrarowheight}{.75ex}
+
+\usepackage{noto-mono}
+\renewcommand*\familydefault{\ttdefault}
+\addtokomafont{section}{\ttfamily}
+
+\areaset{9.5cm}{14.0cm}
+\pgfplotsset{compat=1.16}
+\pagestyle{scrheadings}
+\ifoot{\small TAT v1.3}
+\cfoot{\small Transmission Authentication Table}
+\ofoot{\small\ISOToday}
+\setlength{\footskip}{1.4em}
+
+\pgfplotstableread[header=has colnames,col sep=comma, string type]{TAT.dat}\loadedtable
+
+---pagecolor---
+\newlength\mylineskip
+\newlength\mycolsep
+\mylineskip=1.4em
+\mycolsep=0.11\textwidth
+
+\begin{document}
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+\noindent%
+{\centering
+\begin{tikzpicture}
+  \foreach \y in {0,1,...,29} {
+    \pgfmathparse{int(\y*2)}
+    \node at ($(0, -\mylineskip*\y) + (0, -4*\mylineskip)$) (m\y) {\num[minimum-integer-digits=2]{\pgfmathresult}};
+  }
+
+  \foreach \x in {0,1,...,5} {
+    \foreach \y in {0,1,2,3} {
+      \pgfmathparse{int(\x*100+\y*600)}\edef\hour{\pgfmathresult}
+      \node at ($ (\x*\mycolsep, -\y*\mylineskip) + (\mycolsep, 0)$) (h\x_\y) {\num[minimum-integer-digits=4]{\hour}};
+    }
+  }
+
+  \foreach \x in {0,1,...,5} {
+    \foreach \y in {0,1,...,29} {
+      \pgfplotstablegetelem{\y}{\x}\of{\loadedtable}
+      \node at (m\y -| h\x_0) (m\y_h\x) {\pgfplotsretval};
+    }
+  }
+  \draw (m0.north west) -- (h5_0.east |- m0.north);
+
+  \foreach \y in {0,2,...,29} {
+    \begin{pgfonlayer}{background}
+      \filldraw [fill=---rowcolor---,draw=---rowcolor---]  (m\y.north west) rectangle (h5_0.east |- m\y.south);
+    \end{pgfonlayer}
+  }
+
+  \draw [thick] (m0.west |- h0_0.north) rectangle (m29.south -| h5_0.east);
+\end{tikzpicture}
+
+}
+
+\end{document}
