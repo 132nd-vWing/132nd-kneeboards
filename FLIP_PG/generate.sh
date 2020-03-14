@@ -4,7 +4,7 @@ set -e
 
 autoload -U zmv
 
-geometry=900x1200
+geometry=768x1152
 args_pre="-density 300"
 args_post="-filter box -resize ${geometry} -gravity center -extent ${geometry} -define png:compression-level=9 -define png:compression-filter=1 -define png:compression-strategy=0 -alpha off -normalize"
 

@@ -4,6 +4,8 @@ set -e
 
 autoload -U zmv
 
+source ../args.sh
+
 mkdir -p output
 (
     cd output
@@ -16,8 +18,8 @@ mkdir -p output
         for i in {1..2}
             lualatex -halt-on-error $f
     latexmk -c 
-    gs -sDEVICE=png16m -r400 -o CAS_light_%d.png CAS-kneeboard_light.pdf
-    gs -sDEVICE=png16m -r400 -o CAS_dark_%d.png CAS-kneeboard_dark.pdf
+    eval gs ${GS_ARGS} -o CAS_light_%d.png CAS-kneeboard_light.pdf
+    eval gs ${GS_ARGS} -o CAS_dark_%d.png CAS-kneeboard_dark.pdf
     latexmk -C 
     rm -f CAS-kneeboard*tex
 )

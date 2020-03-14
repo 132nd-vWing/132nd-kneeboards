@@ -2,6 +2,8 @@
 
 set -e
  
+source ../../args.sh
+
 mkdir -p output
 (
     cd output
@@ -14,8 +16,8 @@ mkdir -p output
 
     latexmk -pdf 
     latexmk -c
-    gs -sDEVICE=png16m -r400 -o frequency_table_light_%d.png frequency_table_light.pdf
-    gs -sDEVICE=png16m -r400 -o frequency_table_dark_%d.png frequency_table_dark.pdf
+    eval gs ${GS_ARGS} -o frequency_table_light_%d.png frequency_table_light.pdf
+    eval gs ${GS_ARGS} -o frequency_table_dark_%d.png frequency_table_dark.pdf
     latexmk -C
 
     rm -f frequency_table_{light,dark}.tex frequencies.dat

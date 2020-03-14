@@ -2,6 +2,8 @@
 
 set -e
 
+source ../../args.sh
+
 mkdir -p output
 (
     cd output
@@ -16,8 +18,8 @@ mkdir -p output
         lualatex -halt-on-error $f
     done
     latexmk -c 
-    gs -sDEVICE=png16m -r400 -o AET_light.png AET_light.pdf
-    gs -sDEVICE=png16m -r400 -o AET_dark.png AET_dark.pdf
+    eval gs ${GS_ARGS} -o AET_light.png AET_light.pdf
+    eval gs ${GS_ARGS} -o AET_dark.png AET_dark.pdf
     latexmk -C 
 
     rm -f AET.dat AET*.tex

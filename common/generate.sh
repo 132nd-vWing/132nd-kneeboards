@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-set -ev
+set -e
 
 autoload -U zmv
 

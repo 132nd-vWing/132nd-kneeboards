@@ -2,6 +2,8 @@
 
 set -e
 
+source ../../args.sh
+
 mkdir -p output
 cd output
 cp -f ../TAT.tex TAT_light.tex
@@ -15,8 +17,8 @@ do
     lualatex -halt-on-error $f
 done
 latexmk -c 
-gs -sDEVICE=png16m -r400 -o TAT_light.png TAT_light.pdf
-gs -sDEVICE=png16m -r400 -o TAT_dark.png  TAT_dark.pdf
+eval gs ${GS_ARGS} -o TAT_light.png TAT_light.pdf
+eval gs ${GS_ARGS} -o TAT_dark.png  TAT_dark.pdf
 latexmk -C 
 
 rm -f TAT.dat TAT*.tex
